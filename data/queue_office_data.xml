@@ -1,25 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-	<data noupdate="1">
+	<data noupdate="0">
 
 	    <record model="queue.office.category" id="category_misc">
 	        <field name="name">Miscellaneous</field>
 	        <field name="code">MISC</field>
 	    </record>
 
+		<record model="queue.office.category" id="category_bpp">
+	        <field name="name">Business Permits Payment</field>
+	        <field name="code">BPP</field>
+	    </record>
+
+		<record model="queue.office.category" id="category_rpt">
+	        <field name="name">RPT</field>
+	        <field name="code">RPT</field>
+	    </record>
+
 	</data>
 
 	<data noupdate="0">
 
-	    <record model="queue.office" id="office_medical">
+		<record model="queue.office" id="office_bplo">
+	        <field name="name">BPLO</field>
+	        <!-- <field name="category_id" ref="capstone_queue.category_misc"/> -->
+	    </record>
+
+		<record model="queue.office" id="office_zoning">
+	        <field name="name">ZONING</field>
+	        <!-- <field name="category_id" ref="capstone_queue.category_misc"/> -->
+	    </record>
+
+		<record model="queue.office" id="office_medical">
 	        <field name="name">BACOOR MEDICAL</field>
-	        <!-- <field name="category_id">capstone_queue.category_misc</field> -->
+	        <field name="category_id" ref="capstone_queue.category_misc"/>
+	    </record>
+
+	    <record model="queue.office" id="office_obo">
+	        <field name="name">OBO - BUILDING</field>
+	        <field name="category_id" ref="capstone_queue.category_bpp"/>
+	    </record>
+
+		<record model="queue.office" id="office_health">
+	        <field name="name">HEALTH</field>
+	        <!-- <field name="category_id" ref="capstone_queue.category_misc"/> -->
+	    </record>
+
+		<record model="queue.office" id="office_fire">
+	        <field name="name">FIRE</field>
+	        <field name="category_id" ref="capstone_queue.category_bpp"/>
+	    </record>
+
+		<record model="queue.office" id="office_assessor">
+	        <field name="name">ASSESSOR'S OFFICE</field>
+	        <!-- <field name="category_id" ref="capstone_queue.category_rpt"/> -->
+	    </record>
+
+		<record model="queue.office" id="office_cedula">
+	        <field name="name">CEDULA</field>
+	        <field name="category_id" ref="capstone_queue.category_rpt"/>
+	    </record>
+
+		<record model="queue.office" id="office_police">
+	        <field name="name">POLICE (PNP)</field>
+	        <field name="category_id" ref="capstone_queue.category_rpt"/>
+	    </record>
+
+		<record model="queue.office" id="office_mayor">
+	        <field name="name">MAYOR'S OFFICE</field>
+	        <field name="category_id" ref="capstone_queue.category_rpt"/>
 	    </record>
 
 	    <record model="queue.office" id="office_taffic">
 	        <field name="name">BACOOR TRAFFIC</field>
-	        <!-- <field name="category_id">capstone_queue.category_misc</field> -->
+	        <field name="category_id" ref="capstone_queue.category_misc"/>
+	    </record>
+
+		<record model="queue.office" id="office_burial">
+	        <field name="name">BURIAL</field>
+	        <field name="category_id" ref="capstone_queue.category_misc"/>
+	    </record>
+
+		<record model="queue.office" id="office_engineer">
+	        <field name="name">ENGINEER</field>
+	        <field name="category_id" ref="capstone_queue.category_misc"/>
+	    </record>
+
+		<record model="queue.office" id="office_lcr">
+	        <field name="name">LCR</field>
+	        <field name="category_id" ref="capstone_queue.category_misc"/>
+	    </record>
+
+		<record model="queue.office" id="office_cswd">
+	        <field name="name">CSWD</field>
+	        <field name="category_id" ref="capstone_queue.category_misc"/>
 	    </record>
 
 	</data>
