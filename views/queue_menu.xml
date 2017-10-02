@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <menuitem id="queue_root" name="Queue" sequence="10" />
+
+    <menuitem id="queue_queue_transaction" name="Queue Transaction" parent="queue_root" sequence="10" action="queue_transaction_action"/>
+
+    <menuitem id="queue_config_root" name="Configuration" parent="queue_root" sequence="20" />
+
+    <menuitem id="queue_config_office_root" name="Offices" parent="queue_config_root" sequence="10" />
+    <menuitem id="queue_config_office" name="Offices" parent="queue_config_office_root" sequence="10" action="queue_office_action"/>
+    <menuitem id="queue_config_office_category" name="Office Category" parent="queue_config_office_root" sequence="20" action="queue_office_category_action"/>
+
+    <menuitem id="queue_config_priority" name="Priority" parent="queue_config_root" sequence="20" action="queue_priority_action"/>
+
+  </data>
+</odoo>

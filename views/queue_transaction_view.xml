@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- START QUEUE PRIORITY -->
+        <record id="queue_transaction_view_tree" model="ir.ui.view">
+            <field name="name">queue.transaction.tree</field>
+            <field name="model">queue.transaction</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Queue Transaction">
+                    <field name="name" />
+                    <field name="office_id" />
+                    <field name="op_number" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="queue_transaction_view_form" model="ir.ui.view">
+            <field name="name">queue.transaction.form</field>
+            <field name="model">queue.transaction</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Queue Transaction">
+                    <sheet>
+                        <group>
+                           <field name="name" />
+                           <field name="office_id" />
+                           <field name="op_number" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="queue_transaction_view_search" model="ir.ui.view">
+            <field name="name">queue.transaction.search</field>
+            <field name="model">queue.transaction</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Queue Transaction">
+                    <field name="name" />
+                    <field name="op_number" />
+                    <field name="is_senior" />
+                    <field name="senior_id" />
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Office" domain="[]" context="{'group_by':'office_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="queue_transaction_action">
+            <field name="name">Queue Transaction</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">queue.transaction</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="queue_transaction_view_search" />
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <!-- END QUEUE PRIORITY -->
+
+    </data>
+</odoo>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- START OFFICE -->
+        <record id="queue_office_view_tree" model="ir.ui.view">
+            <field name="name">queue.office.tree</field>
+            <field name="model">queue.office</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Offices">
+                    <field name="name" />
+                    <field name="category_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="queue_office_view_form" model="ir.ui.view">
+            <field name="name">queue.office.form</field>
+            <field name="model">queue.office</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Offices">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="category_id" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="queue_office_view_search" model="ir.ui.view">
+            <field name="name">queue.office.search</field>
+            <field name="model">queue.office</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Offices">
+                    <field name="name" />
+                    <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Category" domain="[]" context="{'group_by':'category_id'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="queue_office_action">
+            <field name="name">Offices</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">queue.office</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="queue_office_view_search" />
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <!-- END OFFICE -->
+
+        <!-- START OFFICE CATEGORY -->
+        <record id="queue_office_category_view_tree" model="ir.ui.view">
+            <field name="name">queue.office.category.tree</field>
+            <field name="model">queue.office.category</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="Office Category">
+                    <field name="name" />
+                    <field name="code" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="queue_office_category_view_form" model="ir.ui.view">
+            <field name="name">queue.office.category.form</field>
+            <field name="model">queue.office.category</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Office Category">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="code" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="queue_office_category_view_search" model="ir.ui.view">
+            <field name="name">queue.office.category.search</field>
+            <field name="model">queue.office.category</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Office Category">
+                    <field name="name" />
+                    <field name="code" />
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="queue_office_category_action">
+            <field name="name">Office Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">queue.office.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="queue_office_category_view_search" />
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <!-- END OFFICE CATEGORY -->
+
+    </data>
+</odoo>
