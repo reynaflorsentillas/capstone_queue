@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+
+    <template id="customlayout" name="custom layout">
+        <html>
+            <head>
+                <link rel="stylesheet" href="/capstone_queue/static/src/css/bootstrap.min.css"/> 
+                <link rel="stylesheet" href="/capstone_queue/static/src/css/capstone_queue.css"/> 
+            </head>
+            <body>
+
+                <main>
+                    <t t-raw="0"/>
+                </main>
+
+                <script type="text/javascript" src="/psvalliance/static/src/js/dpo.js"></script>
+                <script type="text/javascript" src="/psvalliance/static/src/js/dpo2.js"></script> 
+            </body>
+        </html>
+            
+    </template>
+
+
+    <template id="queue" name="Queue Page">
+        <t t-call="capstone_queue.customlayout">
+
+                <div class="col-xs-12 top-50" >
+                    <h1 class="text-center">Please fill out the form</h1>
+
+                   
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 top-50">
+                        <form method="post" action="/add_transaction">
+                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                             <div class="col-sm-12">
+                                <div class="form-group">
+                                   <input type="text" class="form-control input-lg" name="name" placeholder="Name" required="true" />
+                                </div>
+                             </div>
+
+                             <div class="col-sm-12">
+                                <div class="form-group">
+                                   <input type="text" class="form-control input-lg" name="payment_order" required="true" placeholder="Payment Order" />
+                                </div>
+                             </div>
+
+                             <div class="col-sm-12">
+                                <div class="form-group">
+                                   <select type="text" class="form-control input-lg" name="priority" required="true">
+                                        <option value="">Please select priority</option>
+                                        <t t-foreach="priorities" t-as="priority">
+                                            <option t-att-value="priority.id" t-field="priority.name"></option>
+                                        </t>
+                                   </select>
+                                </div>
+                             </div>
+
+
+                             <div class="col-sm-12">
+                                <div class="form-group">
+                                   <select type="text" class="form-control input-lg" name="office" required="true">
+                                        <option>Please select office</option>
+                                        <t t-foreach="offices" t-as="office">
+                                            <option t-att-value="office.id" t-field="office.name"></option>
+                                        </t>
+                                   </select>
+                                </div>
+                             </div>
+
+                             
+                             <div class="col-xs-12">
+                               <div class="form-group">
+                                   <button type="submit" class="btn btn-block btn-primary btn-lg " style="background-color: #94133B;">SUBMIT</button>
+                               </div>
+                             </div>
+
+
+                          </form>
+                    </div>
+                </div>
+        </t>
+    </template>
+
+
+    <template id="dequeue" name="Dequeue Page">
+        <t t-call="capstone_queue.customlayout">
+            <div class="col-sm-8 col-sm-offset-2 top-50">
+                <form method="post" action="/servicing">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" value="0" class="form-control input-lg" name="last_served" required="true" placeholder="Station Name" />
+
+                    <div class="col-sm-12">
+                       <div class="form-group">
+                            <select type="text" class="form-control input-lg" name="priority" required="true">
+                                 <option value="">Please select priority to service</option>
+                                 <t t-foreach="priorities" t-as="priority">
+                                     <option t-att-value="priority.id" t-field="priority.name"></option>
+                                 </t>
+                            </select>
+                       </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                       <div class="form-group">
+                            <select type="text"  value="" class="form-control input-lg" name="office" required="true">
+                                 <option>Please select office to service</option>
+                                 <t t-foreach="offices" t-as="office">
+                                     <option t-att-value="office.id" t-field="office.name"></option>
+                                 </t>
+                            </select>
+                       </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                       <div class="form-group">
+                          <input type="text" class="form-control input-lg" name="station" required="true" placeholder="Station Name" />
+                       </div>
+                    </div>
+
+                    <div class="col-xs-12">
+                      <div class="form-group">
+                          <button type="submit" class="btn btn-block btn-primary btn-lg " style="background-color: #94133B;">Service</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="print_number" name="Print Number">
+        <t t-call="capstone_queue.customlayout">
+            <div id="print_number">
+                <h4 t-esc="priority_desc" class="text-center"></h4>
+                <h4 t-esc="office" class="text-center"></h4>
+                <h1 t-esc="last_in_queue" class="text-center"></h1>
+            </div>
+
+            <div class="text-center top-20 hideonprint" >
+                <a href="/queue" class="btn  btn-primary btn-lg " style="background-color: #94133B;">New Transaction</a>
+            </div>
+
+            <script type="text/javascript">
+                window.print();
+            </script>
+        </t>
+    </template>
+
+
+    <template id="servicing" name="Servicing Page">
+        <t t-call="capstone_queue.customlayout">
+            <div class="col-sm-8 col-sm-offset-2 top-50">
+                <form method="post" action="/servicing">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" t-att-value="office" class="form-control input-lg" name="office" required="true" placeholder="Station Name" />
+                    <input type="hidden" t-att-value="priority" class="form-control input-lg" name="priority" required="true" placeholder="Station Name" />
+                    <input type="hidden" t-att-value="station" class="form-control input-lg" name="station" required="true" placeholder="Station Name" />
+                    <input type="hidden" t-att-value="last_served" class="form-control input-lg" name="last_served" required="true" placeholder="Station Name" />
+                    <div id="servicing">
+                        <h4 t-esc="priority_desc" class="text-center"></h4>
+                        <h1 t-esc="office_desc" class="text-center"></h1>
+                        <h1 t-esc="last_served" class="text-center"></h1>
+                        <h1 t-esc="remark" class="text-center"></h1>
+                    </div>
+
+                    <div class="col-xs-12">
+                      <div class="form-group text-center">
+                          <a href="/dequeue" class="btn  btn-primary btn-lg " style="background-color: #94133B;">Back to Selection</a>
+                          <button type="submit" class="btn  btn-primary btn-lg " style="background-color: #94133B;">Next</button>
+                          <button type="button" class="btn  btn-primary btn-lg " style="background-color: #94133B;">Call</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="monitoring" name="Monitoring Screen">
+        <t t-call="capstone_queue.customlayout">
+            <t t-foreach="active_transactions" t-as="actrans">
+                <div class="col-sm-3 text-center top-20" >
+
+                    <div class="col-xs-12" style="border:2px solid gray; background-color:lightgreen;">
+                        <label style="font-weight:bold;font-size: 30px;" t-esc="actrans.current_station"></label><br/>
+                        <label style="font-weight:bold;font-size: 30px;" t-esc="actrans.queue_number"></label><br/>
+                        <label style="font-weight:bold;font-size: 20px;" t-esc="actrans.priority.name"></label><br/>
+                        <label style="font-weight:bold;font-size: 20px;" t-esc="actrans.office_id.name"></label>
+                    </div>
+                    
+                </div>
+            </t>
+
+            <script type="text/javascript">
+                setTimeout(function(){ window.location.reload() }, 2000);
+            </script>
+        </t>
+    </template>
+
+
+</data>
+</odoo>

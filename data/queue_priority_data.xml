@@ -12,7 +12,7 @@
 	    </record>
 
 	    <record model="queue.priority" id="priority_pwd">
-	        <field name="name">Persons with Diability</field>
+	        <field name="name">Persons with Disability</field>
 	        <field name="code">PWD</field>
 	        <field name="priority_sequence">10</field>
 	    </record>

@@ -11,6 +11,9 @@
                     <field name="name" />
                     <field name="office_id" />
                     <field name="op_number" />
+                    <field name="priority" />
+                    <field name="queue_number" />
+                    <field name="current_station" />
                 </tree>
             </field>
         </record>
@@ -26,6 +29,9 @@
                            <field name="name" />
                            <field name="office_id" />
                            <field name="op_number" />
+                           <field name="priority" />
+                           <field name="queue_number" />
+                           <field name="current_station" />
                         </group>
                     </sheet>
                 </form>
@@ -40,12 +46,10 @@
                 <search string="Queue Transaction">
                     <field name="name" />
                     <field name="op_number" />
-                    <field name="is_senior" />
-                    <field name="senior_id" />
-                    <newline />
-                    <group expand="0" string="Group By...">
-                        <filter string="Office" domain="[]" context="{'group_by':'office_id'}" />
-                    </group>
+                    <field name="priority" />
+                    <field name="office_id" />
+                    <field name="queue_number" />
+                    <field name="current_station" />
                 </search>
             </field>
         </record>
