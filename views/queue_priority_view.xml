@@ -10,7 +10,6 @@
                 <tree string="Priority">
                     <field name="name" />
                     <field name="code" />
-                    <field name="priority_sequence" />
                 </tree>
             </field>
         </record>
@@ -25,7 +24,6 @@
                         <group>
                             <field name="name" />
                             <field name="code" />
-                            <field name="priority_sequence" />
                         </group>
                     </sheet>
                 </form>
