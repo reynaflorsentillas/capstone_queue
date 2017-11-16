@@ -15,22 +15,39 @@ _logger = logging.getLogger(__name__)
 
 class capstonequeue(http.Controller):
     @http.route('/queue', type='http', auth="public", website=True)
-    def queue(self):
+    def queue(self, **kw):
         #env = request.env(context=dict(request.env.context, show_address=True, no_tag_br=True))
         # Render page
         priorities = http.request.env['queue.priority'].sudo()
         priorities = priorities.search([])
 
 
+        office = request.params['office']
+
+        values = {
+            'priorities': priorities,
+            'office': office
+        }
+
+        return request.render("capstone_queue.queue", values)
+
+
+
+    @http.route('/offices', type='http', auth="public", website=True)
+    def offices(self):
+        #env = request.env(context=dict(request.env.context, show_address=True, no_tag_br=True))
+        # Render page
+
         offices = http.request.env['queue.office'].sudo()
         offices = offices.search([])
 
         values = {
-            'priorities': priorities,
             'offices': offices
         }
 
-        return request.render("capstone_queue.queue", values)
+        return request.render("capstone_queue.offices", values)
+
+
 
 
 

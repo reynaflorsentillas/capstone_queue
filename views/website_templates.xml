@@ -27,7 +27,9 @@
         <t t-call="capstone_queue.customlayout">
 
                 <div class="col-xs-12 top-50" >
-                    <h1 class="text-center">Please fill out the form</h1>
+                    <h1 class="text-center">Please fill out the form<br/>
+                      <small>Paki-sagutan and mga tanong</small>
+                    </h1>
 
                    
                     <div class="col-xs-12 col-sm-8 col-sm-offset-2 top-50">
@@ -35,20 +37,22 @@
                              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                              <div class="col-sm-12">
                                 <div class="form-group">
-                                   <input type="text" class="form-control input-lg" name="name" placeholder="Name" required="true" />
+                                   <input type="text" class="form-control input-lg" name="name" placeholder="Name ( Pangalan )" required="true" />
                                 </div>
                              </div>
 
                              <div class="col-sm-12">
                                 <div class="form-group">
-                                   <input type="text" class="form-control input-lg" name="payment_order" required="true" placeholder="Payment Order" />
+                                   <small>OPTIONAL: For payment only  (Opsyonal: Sa magbabayad lamang)</small>
+                                   <input type="text" class="form-control input-lg" name="payment_order" placeholder="Payment Order ( Numero ng pagbabayad )" />
+                                   <input type="text" class="form-control input-lg hidden" t-att-value="office" name="office" required="true" placeholder="Payment Order" />
                                 </div>
                              </div>
 
                              <div class="col-sm-12">
                                 <div class="form-group">
                                    <select type="text" class="form-control input-lg" name="priority" required="true">
-                                        <option value="">Please select priority</option>
+                                        <option value="">Please select priority ( Pumili ng prayoridad )</option>
                                         <t t-foreach="priorities" t-as="priority">
                                             <option t-att-value="priority.id" t-field="priority.name"></option>
                                         </t>
@@ -57,7 +61,7 @@
                              </div>
 
 
-                             <div class="col-sm-12">
+                             <!--<div class="col-sm-12">
                                 <div class="form-group">
                                    <select type="text" class="form-control input-lg" name="office" required="true">
                                         <option>Please select office</option>
@@ -66,12 +70,13 @@
                                         </t>
                                    </select>
                                 </div>
-                             </div>
+                             </div>-->
+
 
                              
                              <div class="col-xs-12">
                                <div class="form-group">
-                                   <button type="submit" class="btn btn-block btn-primary btn-lg " style="background-color: #94133B;">SUBMIT</button>
+                                   <button type="submit" class="btn btn-block btn-primary btn-lg " style="background-color: #94133B;">SUBMIT (IPASA)</button>
                                </div>
                              </div>
 
@@ -79,6 +84,11 @@
                           </form>
                     </div>
                 </div>
+
+                <script type="text/javascript">
+                    setTimeout(function(){ window.location="/offices" }, 120000);
+                </script>
+
         </t>
     </template>
 
@@ -138,11 +148,12 @@
             </div>
 
             <div class="text-center top-20 hideonprint" >
-                <a href="/queue" class="btn  btn-primary btn-lg " style="background-color: #94133B;">New Transaction</a>
+                <a href="/queue" class="btn  btn-primary btn-lg " style="background-color: #94133B;">New Transaction ( Panibagong Transaksyon )</a>
             </div>
 
             <script type="text/javascript">
                 window.print();
+                setTimeout(function(){ window.location="/offices" }, 3000);
             </script>
         </t>
     </template>
@@ -173,6 +184,31 @@
                     </div>
                 </form>
             </div>
+        </t>
+    </template>
+
+
+
+    <template id="offices" name="Offices Page">
+        <t t-call="capstone_queue.customlayout">
+            <t t-foreach="offices" t-as="office">
+                <div class="col-sm-3 text-center top-20" >
+
+
+                    <form method="post" action="/queue">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" t-att-value="office.id" class="form-control input-lg" name="office" required="true" placeholder="Station Name" />
+                        
+
+                        <div class="col-xs-12">
+                          <div class="form-group text-center">
+                              <button t-esc="office.name" type="submit" class="btn  btn-primary btn-lg btn-block" style="background-color: #94133B;">Next</button>
+                          </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </t>
         </t>
     </template>
 
