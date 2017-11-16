@@ -24,6 +24,7 @@
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'data/ir_sequence_data.xml',
         'data/queue_office_data.xml',
         'data/queue_priority_data.xml',
         'views/queue_office_view.xml',
