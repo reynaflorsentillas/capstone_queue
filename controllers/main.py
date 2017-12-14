@@ -33,6 +33,74 @@ class capstonequeue(http.Controller):
 
 
 
+
+    @http.route('/confirmation', type='http', auth="public", website=True)
+    def confirmation(self, **kw):
+
+        #Get Last In Queue Number
+        prioritymonitoring = http.request.env['queue.prioritymonitoring'].sudo()
+
+        priority_id = request.params['priority']
+        office_id = request.params['office']
+        payment_order = request.params['payment_order']
+        name = request.params['name']
+
+        last_in_queue = 0
+
+        prioritymonitoring = prioritymonitoring.search([['priority.id','=',priority_id],['office_id.id','=',office_id]])
+
+        priority_desc = ''
+
+        for priom in prioritymonitoring:
+            last_in_queue = (priom.last_in_queue)
+
+
+        priority = http.request.env['queue.priority'].sudo()
+        priority = priority.search([['id','=',priority_id]])
+
+        for prio in priority:
+            priority_desc = prio.name
+
+
+        office_id = request.params['office']
+
+        offices = http.request.env['queue.office'].sudo()
+        offices = offices.search([['id','=',office_id]])
+        office_desc = ''
+
+        for office in offices:
+            office_desc = office.name
+
+
+        currently_serving = '-'
+
+        active_transactions = http.request.env['queue.transaction'].sudo()
+
+        active_transactions = active_transactions.search([['office_id.id','=',office_id],['priority.id','=',priority_id],['current_station','!=','none']])
+
+        for trans in active_transactions:
+            currently_serving = trans.queue_number
+
+
+        values = {
+            'last_in_queue':last_in_queue,
+            'currently_serving': currently_serving,
+            'priority_desc': priority_desc,
+            'office': office_desc,
+            'office_id': office_id,
+            'priority_id': priority_id,
+            'name': name,
+            'payment_order': payment_order
+        }
+
+
+
+        return request.render("capstone_queue.confirmation", values)
+
+
+
+
+
     @http.route('/offices', type='http', auth="public", website=True)
     def offices(self):
         #env = request.env(context=dict(request.env.context, show_address=True, no_tag_br=True))
@@ -238,16 +306,19 @@ class capstonequeue(http.Controller):
         offices = http.request.env['queue.office'].sudo()
         offices = offices.search([['id','=',office_id]])
         office_desc = ''
+        office_location = ''
 
         for office in offices:
             office_desc = office.name
+            office_location = office.location
 
 
         values = {
             'result': result,
             'last_in_queue':last_in_queue,
             'priority_desc': priority_desc,
-            'office': office_desc
+            'office': office_desc,
+            'office_location': office_location
         }
 
 

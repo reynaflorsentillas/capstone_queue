@@ -12,3 +12,4 @@ class QueueOffice(models.Model):
 
 	name = fields.Char()
 	category_id = fields.Many2one('queue.office.category', string='Category')
+	location = fields.Selection([('left', 'Left'),('right', 'Right')])

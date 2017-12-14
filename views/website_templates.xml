@@ -33,7 +33,7 @@
 
                    
                     <div class="col-xs-12 col-sm-8 col-sm-offset-2 top-50">
-                        <form method="post" action="/add_transaction">
+                        <form method="post" action="/confirmation">
                              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                              <div class="col-sm-12">
                                 <div class="form-group">
@@ -91,6 +91,112 @@
 
         </t>
     </template>
+
+
+
+
+
+    <template id="confirmation" name="Queue Confirmation Page">
+        <t t-call="capstone_queue.customlayout">
+
+                <div class="col-xs-12 top-50" >
+                    <h1 class="text-center">Please review the following details<br/>
+                      <small>Paki-kumpirma ng mga sumusunod na detalye</small>
+                    </h1>
+
+                   
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 top-50">
+                        <form method="post" action="/add_transaction">
+                             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                             
+
+                             <div>
+                                <input type="text" class="form-control hidden" t-att-value="name" name="name"/>
+                                <input type="text" class="form-control hidden" t-att-value="office_id" name="office"/>
+                                <input type="text" class="form-control hidden" t-att-value="payment_order" name="payment_order"/>
+                                <input type="text" class="form-control hidden" t-att-value="priority_id" name="priority"/>
+                             </div>
+
+
+                             <div class="col-sm-12">
+                                <div class="form-group">
+                                   <small>Name (Pangalan)</small>
+                                   <input type="text" readonly="True" class="form-control input-lg" t-att-value="name"   />
+                                </div>
+                             </div>
+
+
+                             <div class="col-sm-12">
+                                <div class="form-group">
+                                   <small>OPTIONAL: For payment only  (Opsyonal: Sa magbabayad lamang)</small>
+                                   <input type="text" readonly="True" class="form-control input-lg" t-att-value="payment_order"  />
+                                </div>
+                             </div>
+
+
+                             <div class="col-sm-12">
+                                <div class="form-group">
+                                   <small>Office (Opisina)</small>
+                                   <input type="text" readonly="True" class="form-control input-lg " t-att-value="office"  />
+                                </div>
+                             </div>
+
+                             <div class="col-sm-12">
+                                <div class="form-group">
+                                   <small>Priority (Prayoridad)</small>
+                                   <input type="text" readonly="True" class="form-control input-lg " t-att-value="priority_desc"  />
+                                </div>
+                             </div>
+
+
+                             <!--<div class="col-sm-12">
+                                <div class="form-group">
+                                   <select type="text" class="form-control input-lg" name="office" required="true">
+                                        <option>Please select office</option>
+                                        <t t-foreach="offices" t-as="office">
+                                            <option t-att-value="office.id" t-field="office.name"></option>
+                                        </t>
+                                   </select>
+                                </div>
+                             </div>-->
+
+                             <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                       <small>Last number in Queue (Huling numero sa pila)</small>
+                                       <input type="text" readonly="True" class="form-control input-lg " t-att-value="last_in_queue"  />
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                       <small>Currently Serving ( Kasalukuyang Pinoproseso )</small>
+                                       <input type="text" readonly="True" class="form-control input-lg " t-att-value="currently_serving"  />
+                                    </div>
+                                </div>
+                             </div>
+
+
+                             
+                             <div class="col-xs-12">
+                               <div class="form-group">
+                                   <button type="submit" class="btn btn-block btn-primary btn-lg " style="background-color: #94133B;">CONFIRM (KUMPIRMAHIN)</button>
+                               </div>
+                             </div>
+
+
+                          </form>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    setTimeout(function(){ window.location="/offices" }, 120000);
+                </script>
+
+        </t>
+    </template>
+
+
+
 
 
     <template id="dequeue" name="Dequeue Page">
@@ -151,9 +257,14 @@
                 <a href="/queue" class="btn  btn-primary btn-lg " style="background-color: #94133B;">New Transaction ( Panibagong Transaksyon )</a>
             </div>
 
+            <div class="col-xs-12 hideonprint text-center">
+                <h3>Ticket Printing in 3 seconds...</h3><br/>
+                <h1><t t-esc="office" /> is in the <b style="color: yellowgreen;font-size:80px;"><t t-esc="office_location" /></b> side. Thank you. </h1>
+            </div>
+
             <script type="text/javascript">
-                window.print();
-                setTimeout(function(){ window.location="/offices" }, 3000);
+                setTimeout(function(){ window.print(); }, 3000);
+                setTimeout(function(){ window.location="/offices"; }, 6000);
             </script>
         </t>
     </template>
